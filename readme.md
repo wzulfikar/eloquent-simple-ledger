@@ -1,35 +1,39 @@
 # Simple Ledger Mechanism via Laravel Eloquent
 
->debit, credit & balance are all integers by default.
-
-
-### Record new debit 
-
-	$amount  = 50;
-	$desc    = 'initial deposit';
-	$account = Account::find($your_account_id);
-	$account->ledger->debit($amount, $desc);
-
-Above code will create new row in `account_ledgers` table where `account_id` column is `$your_account_id`, `debit` column is `$amount` and `desc` column is `$desc`. The `balance` column will be summation of `balance` of previous row and `$amount`.
-
-### Record new credit
-
+### Usage 
+		
 	$amount  = 500;
-	$desc    = 'rent payment';
-	$account = Account::find($your_account_id);
-	$account->ledger->credit($amount, $desc);
-
-Above code will create new row in `account_ledgers` table where `account_id` column is `$your_account_id`, `credit` column is `$amount` and `desc` column is `$desc`. The `balance` column will be summation of `balance` of previous row and `-($amount)`.
+	$desc    = 'initial deposit';
+	
+	// find account from table `accounts`
+	$account = Account::findOrFail($your_account_id);
+	
+	// assuming that current balance is 0
+	// and now we want to debit 500.
+	// this will create new debit record in table `account_ledgers`
+	$account->debit($amount, $desc);
+	
+	// the balance now is 500
+	// which is previous balance (0) + current transaction (500)
+	echo $account->balance;
+	
+	// let's withdraw some money.
+	// this will create new credit record in table `account_ledgers`
+	$account->credit(50, 'rent payment');
+	
+	// the balance now is 450
+	// which is previous balance (500) + current transaction (-50)
+	echo $account->balance;
 
 ### Get account balance
 
-	$account = Account::find($your_account_id);
+	$account = Account::findOrFail($your_account_id);
 	$account->balance;
 
-### Get Last (Previous) Balance
+### Get Previous Balance
 
 	$account = Account::find($your_account_id);
-	$account->ledger->last_balance;
+	$account->prev_balance;
 
 ### Get Ledger Records
 
@@ -69,15 +73,19 @@ Table `account_ledgers` contains transactions from all accounts in table `accoun
 
 `balance` in `account_ledgers` records new balance after every transaction. 
 
-*Example Debit* : if balance of last row is 50 and current row's debit is 10, then the balance of current row will be 50 + 10 = 60.
+*Example Debit* :  
+if balance of last row is 50 and current row's debit is 10, then the balance of current row will be 50 + 10 = 60.
 
-*Example Credit* : if balance of last row is 60 and current row's credit is 20, then the balance of current row will be 60 + -(20) = 40.
+*Example Credit* :  
+if balance of last row is 60 and current row's credit is 20, then the balance of current row will be 60 + -(20) = 40.
 
 Since balance of every transaction is recorded in `account_ledgers`, generating report (eg. bank-statement) will be easier.
 
 The `balance` column in table `accounts` used to get balance of particular account, which is actually value of `balance` of last row in table `account_ledgers` of that particular account. This is to avoid querying whole rows in `account_ledgers` just to get balance of an account.
 
 All rows in table `account_ledgers`	 are meant to be read-only data. A row can only be created, update or modification should not be processed.
+
+>debit, credit & balance are all integers by default.
 
 ### Integrating with User Model
 Say, you want to get balance of currently logged in user, which might be something like this:
