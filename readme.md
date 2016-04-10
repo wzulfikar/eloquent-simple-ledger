@@ -102,3 +102,20 @@ Copy files in package's migrations folder into your laravel's migrations folder 
 
 If you don't want to copy thus files into your app's migration folder, pass the path to package's migration files in artisan migrate command. Like this:
 `php artisan migrate --path=vendor/wzulfikar/eloquent-simple-ledger/migrations`
+
+### How it Looks
+To see how it looks, 
+
+- include package's `routes.php` into your app's `routes.php` :  
+	`require_once base_path('path/to/wzulfikar/eloquent-simple-ledger/routes.php');`
+- create dummy data for `account` and `account_ledgers` and then visit `/ledger/{account_id}`.
+
+![image](sample-view.png)
+
+The sample view included some features:
+
+ - export to excel, csv & pdf
+ - reloading data using ajax
+ - indicator for latest transaction
+ - readable time via moment.js
+ - responvie table, sortable columns & searchable -- yes, it uses datatables :)
