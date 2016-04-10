@@ -2,16 +2,13 @@
 
 ### Usage 
 		
-	$amount  = 500;
-	$desc    = 'initial deposit';
-	
 	// find account from table `accounts`
 	$account = Account::findOrFail($your_account_id);
 	
 	// assuming that current balance is 0
-	// and now we want to debit 500.
+	// and now we want to debit 500
 	// this will create new debit record in table `account_ledgers`
-	$account->debit($amount, $desc);
+	$account->debit(500, 'initial deposit');
 	
 	// the balance now is 500
 	// which is previous balance (0) + current transaction (500)
@@ -35,6 +32,7 @@
 	$account = Account::find($your_account_id);
 	$account->prev_balance;
 
+This method used to calculate the balance after each transaction.
 ### Get Ledger Records
 
 	$account = Account::find($your_account_id);
@@ -61,7 +59,6 @@ Table `account_ledgers` :
 - (int) account_id
 - (int) debit  
   amount of debit, nullable.
-
 - (int) credit  
   amount of credit, nullable.
 - (text) desc  

@@ -134,7 +134,7 @@ function initDt($el, data){
           // if balance is zero or less, make it red
           data = data.toString().indexOf('.') > -1 ? data : data + '.00';
 
-          var render = Number.parseFloat(data) <= 0 ? '<span style="color:red;">' + data + '</span>' : data;
+          var render = Number.parseFloat(data) < 0 ? '<span style="color:red;">' + data + '</span>' : data;
           
           if(row.id == last_record.id){
             render += '<a class="pull-left" title="Your current balance is '
