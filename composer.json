@@ -1,0 +1,8 @@
+{
+    "name": "wzulfikar/eloquent-simple-ledger",
+    "autoload": {
+        "psr-4": {
+            "Wzulfikar\\EloquentSimpleLedger\\": "src/"
+        }
+    }
+}
