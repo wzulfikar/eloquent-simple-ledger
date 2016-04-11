@@ -12,7 +12,10 @@
 #table-ledger_length{
   float: left;
 }
-.btn:focus, .btn:focus:active {
+#current-balance {
+  font-weight: bold;
+}
+.btn:focus, .btn:focus:active, .paginate_button a:focus, .paginate_button a:focus:active{
   outline-color:white !important;
 }
 </style>
@@ -31,7 +34,7 @@
             <div class="panel-heading">Account Summary</div>
             <div class="panel-body" id="panel-account-summary">
               <div id="chart-account-summary" style="height: 175px;"></div>
-              <div class="text-center">Current Balance: {{ $account->balance/100 }}</div>
+              <div class="text-center">Current Balance: <span id="current-balance">{{ $account->balance/100 }}</span></div>
             </div>
           </div>
         </div>
@@ -46,14 +49,18 @@
                 <input type="hidden" name="action" value="debit"></input>
                 <div class="form-group">
                   <label>Debit Amount</label>
-                  <input name="amount" type="text" class="form-control" placeholder="Insert Amount" required autofocus>
+                  <input name="amount" type="number" class="form-control" placeholder="Insert amount" required autofocus>
                 </div>
                 <div class="form-group">
                   <label>Debit Description</label>
                   <textarea name="desc" class="form-control" placeholder="Insert description" required></textarea>
                 </div>
-                <button type="reset" class="btn btn-default">Reset</button>
-                <button type="submit" class="btn btn-default">Save</button>
+
+                <div class="row-fluid pull-right">
+                  <button type="reset" class="btn btn-default">Reset</button>
+                  <button type="submit" class="btn btn-success">Save</button>
+                </div>
+                
               </form>
 
             </div>
@@ -70,14 +77,16 @@
                 <input type="hidden" name="action" value="credit"></input>
                 <div class="form-group">
                   <label>Credit Amount</label>
-                  <input name="amount" type="text" class="form-control" placeholder="Insert Amount" required>
+                  <input name="amount" type="number" class="form-control" placeholder="Insert amount" required>
                 </div>
                 <div class="form-group">
                   <label>Credit Description</label>
                   <textarea name="desc" class="form-control" placeholder="Insert description" required></textarea>
                 </div>
-                <button type="reset" class="btn btn-default">Reset</button>
-                <button type="submit" class="btn btn-default">Save</button>
+                <div class="row-fluid pull-right">
+                  <button type="reset" class="btn btn-default">Reset</button>
+                  <button type="submit" class="btn btn-success">Save</button>
+                </div>
               </form>
 
             </div>
