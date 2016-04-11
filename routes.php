@@ -10,8 +10,7 @@ Route::get('ledger/{account_id}', function($account_id){
 
 	view()->addLocation(__DIR__ . '/views');
 
-	$last_record = $account->ledger()->latest()->first();
-	return view('eloquent-simple-ledger.index', compact('account_id', 'last_record'));
+	return view('eloquent-simple-ledger.index', compact('account'));
 });
 
 Route::post('ledger/{account_id}', function($account_id){

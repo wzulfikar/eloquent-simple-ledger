@@ -31,7 +31,7 @@
             <div class="panel-heading">Account Summary</div>
             <div class="panel-body" id="panel-account-summary">
               <div id="chart-account-summary" style="height: 175px;"></div>
-              <div class="text-center">Current Balance: {{ $last_record->balance }}</div>
+              <div class="text-center">Current Balance: {{ $account->balance/100 }}</div>
             </div>
           </div>
         </div>
@@ -88,7 +88,7 @@
 
       <div class="panel panel-default">
         <div class="panel-heading">
-        Ledger of Account #{{$account_id}}
+        Ledger of Account #{{$account->id}}
         
         <a class="pull-right" title="Refresh ledger" data-toggle="tooltip" data-action="refresh-table-ledger"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></a>
 
