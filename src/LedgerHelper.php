@@ -35,6 +35,9 @@ class LedgerHelper {
 											->get(['created_at', 'debit', 'credit', 'balance'])
 											->toArray();
 
+    if(!count($ledger))
+    	return [];
+
 		// $months = array_flip($months);
 		foreach ($months as $monthsKey => $month) {
 			

@@ -51,7 +51,7 @@ function initDt($el, data){
       last_record = data[data.length - 1];
 
   // update current balance
-  setCurrentBalance(last_record.balance);
+  setCurrentBalance(last_record ? last_record.balance : 0);
 
   var columnDefs = [
     {
