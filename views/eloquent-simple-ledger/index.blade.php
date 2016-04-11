@@ -41,6 +41,10 @@
           @include('eloquent-simple-ledger.panels.new-credit')
         </div>
 
+        <div class="col-md-8 col-sm-12">
+          @include('eloquent-simple-ledger.panels.transaction-history')
+        </div>
+
       </div>
 
       @include('eloquent-simple-ledger.panels.table-ledger')
