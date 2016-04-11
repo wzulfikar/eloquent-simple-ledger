@@ -1,9 +1,12 @@
 # Simple Ledger Mechanism via Laravel Eloquent
 
+### Installation
+`composer require wzulfikar\eloquent-simple-ledger`
+
 ### Usage 
-		
-	// find account from table `accounts`
-	$account = Account::findOrFail($your_account_id);
+	
+	// find account from table `accounts`	
+	$account = \Wzulfikar\EloquentSimpleLedger\Account::findOrFail($your_account_id);
 	
 	// assuming that current balance is 0
 	// and now we want to debit 500
@@ -16,7 +19,7 @@
 	
 	// let's withdraw some money.
 	// this will create new credit record in table `account_ledgers`
-	$account->credit(50, 'rent payment');
+	$account->credit(50, 'withdrawal');
 	
 	// the balance now is 450
 	// which is previous balance (500) + current transaction (-50)
@@ -24,18 +27,25 @@
 
 ### Get account balance
 
-	$account = Account::findOrFail($your_account_id);
+	$account = \Wzulfikar\EloquentSimpleLedger\Account::findOrFail($your_account_id);
 	$account->balance;
 
 ### Get Previous Balance
 
-	$account = Account::find($your_account_id);
 	$account->prev_balance;
 
 This method used to calculate the balance after each transaction.
+
+### Record New Debit
+
+	$account->debit($amount, $description);
+
+### Record New Credit
+
+	$account->credit($amount, $description);
+
 ### Get Ledger Records
 
-	$account = Account::find($your_account_id);
 	$account->ledger->all();
 
 ### Behind The Scene
@@ -122,5 +132,6 @@ The sample view included some features:
  - export to excel, csv & pdf
  - reloading data using ajax
  - indicator for latest transaction
- - readable time via moment.js
+ - human friendly time using moment.js
  - responvie table, sortable columns & searchable -- yes, it uses datatables :)
+ - debts indicator : balance will be red if it less than 0
