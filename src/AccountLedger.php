@@ -16,6 +16,11 @@ class AccountLedger extends Model{
 		return $this->debit ?: -($this->credit);
 	}
 
+	public function delete()
+	{
+	  die("Ledger can't be deleted to keep the integrity of its historical data");
+	}
+
 	public function save(array $options = []){
 		
 		$this->balance = $this->account->balance + $this->transaction_amount;
