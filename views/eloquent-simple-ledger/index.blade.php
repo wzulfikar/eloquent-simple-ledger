@@ -30,7 +30,7 @@
       <div class="row">
 
         <div class="col-md-4 col-sm-12">
-          <div class="panel panel-default">
+          <div class="panel panel-info">
             <div class="panel-heading">Account Summary</div>
             <div class="panel-body" id="panel-account-summary">
               <div id="chart-account-summary" style="height: 175px;"></div>
@@ -40,7 +40,7 @@
         </div>
 
         <div class="col-md-4 col-sm-12">
-          <div class="panel panel-default">
+          <div class="panel panel-success">
             <div class="panel-heading">New Debit</div>
             <div class="panel-body">
 
@@ -68,7 +68,7 @@
         </div>        
 
         <div class="col-md-4 col-sm-12">
-          <div class="panel panel-default">
+          <div class="panel panel-warning">
             <div class="panel-heading">New Credit</div>
             <div class="panel-body">
               
@@ -85,7 +85,7 @@
                 </div>
                 <div class="row-fluid pull-right">
                   <button type="reset" class="btn btn-default">Reset</button>
-                  <button type="submit" class="btn btn-success">Save</button>
+                  <button type="submit" class="btn btn-warning">Save</button>
                 </div>
               </form>
 
@@ -95,11 +95,11 @@
 
       </div>
 
-      <div class="panel panel-default">
+      <div class="panel panel-primary">
         <div class="panel-heading">
         Ledger of Account #{{$account->id}}
         
-        <a class="pull-right" title="Refresh ledger" data-toggle="tooltip" data-action="refresh-table-ledger"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></a>
+        <a class="pull-right" title="Refresh ledger" data-toggle="tooltip" data-action="refresh-table-ledger"><span class="glyphicon glyphicon-repeat" aria-hidden="true" style="color:white;"></span></a>
 
         </div>
 
