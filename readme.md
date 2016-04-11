@@ -125,7 +125,11 @@ To see how it looks,
 	`require_once base_path('path/to/wzulfikar/eloquent-simple-ledger/routes.php');`
 - create dummy data for `account` and `account_ledgers` and then visit `/ledger/{account_id}`.
 
-![image](sample-view.png)
+### Sample View : No Data
+![image](view-without-data.png)
+
+### Sample View : With Data
+![image](view-with-data.png)
 
 The sample view included some features:
 
