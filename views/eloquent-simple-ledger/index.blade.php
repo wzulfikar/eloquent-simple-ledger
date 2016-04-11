@@ -4,12 +4,76 @@
 <link href="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.11/css/dataTables.bootstrap.min.css" rel="stylesheet">
 <link href="//cdn.datatables.net/buttons/1.1.2/css/buttons.dataTables.min.css" rel="stylesheet">
 <link href="//cdn.datatables.net/responsive/2.0.2/css/responsive.dataTables.min.css" rel="stylesheet">
+<style type="text/css">
+#table-ledger_length{
+  float: left;
+}*/
+</style>
 @endpush
 
 @section('content')
 <div class="container">
+  
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
+
+      <div class="row">
+
+        <div class="col-md-4 col-sm-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">Current Balance</div>
+            <div class="panel-body">
+              Panel content
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">New Debit</div>
+            <div class="panel-body">
+
+              <form>
+                <div class="form-group">
+                  <label>Debit Amount</label>
+                  <input type="text" class="form-control" placeholder="Insert Amount">
+                </div>
+                <div class="form-group">
+                  <label>Debit Description</label>
+                  <textarea class="form-control" placeholder="Insert description"></textarea>
+                </div>
+                <button type="reset" class="btn btn-default">Reset</button>
+                <button type="submit" class="btn btn-default">Save</button>
+              </form>
+
+            </div>
+          </div>
+        </div>        
+
+        <div class="col-md-4 col-sm-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">New Credit</div>
+            <div class="panel-body">
+              
+              <form>
+                <div class="form-group">
+                  <label>Credit Amount</label>
+                  <input type="text" class="form-control" placeholder="Insert Amount">
+                </div>
+                <div class="form-group">
+                  <label>Credit Description</label>
+                  <textarea class="form-control" placeholder="Insert description"></textarea>
+                </div>
+                <button type="reset" class="btn btn-default">Reset</button>
+                <button type="submit" class="btn btn-default">Save</button>
+              </form>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
       <div class="panel panel-default">
         <div class="panel-heading">
         Ledger of Account #{{$account_id}}
@@ -148,12 +212,12 @@ function initDt($el, data){
     ],
 
     // export functions
-    dom: 'Bfrtip',
+    dom: 'Blfrtip',
     buttons: [
       // 'copyHtml5',
       'excelHtml5',
       'csvHtml5',
-      'pdfHtml5'
+      'pdfHtml5',
     ]
 
   })
