@@ -41,13 +41,12 @@ class LedgerHelper {
 		// $months = array_flip($months);
 		foreach ($months as $monthsKey => $month) {
 			
-			$month_data = ['debit'=>0, 'credit'=>0, 'balance'=>0];
+			$month_data = ['debit'=>0, 'credit'=>0, 'balance'=>0, 'month'=>date('M Y', strtotime($month . '-01'))];
 
 			foreach ($ledger as $ledgerKey => $transaction) {
 				if(!starts_with($transaction['created_at'], $month))
 					continue;
-
-				$month_data['month']   = date('M Y', strtotime($month . '-01')); 
+ 
 				$month_data['debit']  += $transaction['debit']/100; 
 				$month_data['credit'] += $transaction['credit']/100;
 				$month_data['balance'] = $transaction['balance']/100;
