@@ -42,7 +42,9 @@ function setCurrentBalance(bal){
 function reloadLedgerData(){
   $.getJSON('{{\Request::url()}}', function(data){
     initDt($('#table-ledger'), data.ledger);
-    chartAccountSummary.setData(data.summary);
+    
+    if(data.summary.length)
+      chartAccountSummary.setData(data.summary);
   });
 }
 
@@ -160,7 +162,9 @@ function initDt($el, data){
 // chart account summary
 var chartAccountSummary = Morris.Bar({
   element: 'chart-account-summary',
-  data: [],
+  data: [
+    {month:'No data', debit:0, credit:0, balance:0}
+  ],
   xkey: 'month',
   ykeys: ['debit', 'credit', 'balance'],
   labels: ['Debit', 'Credit', 'Balance'],
