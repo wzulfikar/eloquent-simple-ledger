@@ -1,25 +1,36 @@
 <?php
 
-Route::get('ledger/{account_id}', function($account_id){
+use \Wzulfikar\EloquentSimpleLedger\Account;
+use \Wzulfikar\EloquentSimpleLedger\LedgerHelper;
 
-	$account = Wzulfikar\EloquentSimpleLedger\Account::findOrFail($account_id);
+Route::group([
+	'as'=>'Ledger::',
+	'prefix'=>'ledger/{account}',
+	], function($account) use ($router){ // implicit binding for account
 
-	if(\Request::ajax()){
-		return $account->ledger()->get();
-	}
+		// bind account to \Wzulfikar\EloquentSimpleLedger\Account
+		$router->model('account', Account::class);
 
-	view()->addLocation(__DIR__ . '/views');
+		Route::get('', function($account){
+			if(Request::ajax()){
+				return LedgerHelper::accountData($account);
+			}
 
-	return view('eloquent-simple-ledger.index', compact('account'));
-});
+			view()->addLocation(__DIR__ . '/views');
 
-Route::post('ledger/{account_id}', function($account_id){
+			return view('eloquent-simple-ledger.index', compact('account'));
+		});
 
-	$account = Wzulfikar\EloquentSimpleLedger\Account::findOrFail($account_id);
+		Route::post('', function($account){
+			$transaction = LedgerHelper::record(Request::all(), $account);
 
-	$amount = \Request::get('amount');
-	$desc   = \Request::get('desc');
-	$action = \Request::get('action'); // debit or credit
+			if(isset($transaction['error']))
+				return $transaction;
 
-	return ['success'=>$account->$action($amount, $desc), 'msg'=>'debit success'];
+			return LedgerHelper::accountData($account);
+		});
+
+		Route::get('summary', function($account){
+			return LedgerHelper::summary($account);
+		});
 });
