@@ -4,10 +4,14 @@
 <link href="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.11/css/dataTables.bootstrap.min.css" rel="stylesheet">
 <link href="//cdn.datatables.net/buttons/1.1.2/css/buttons.dataTables.min.css" rel="stylesheet">
 <link href="//cdn.datatables.net/responsive/2.0.2/css/responsive.dataTables.min.css" rel="stylesheet">
+
+<!-- morris -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+
 <style type="text/css">
 #table-ledger_length{
   float: left;
-}*/
+}
 </style>
 @endpush
 
@@ -21,9 +25,10 @@
 
         <div class="col-md-4 col-sm-12">
           <div class="panel panel-default">
-            <div class="panel-heading">Current Balance</div>
-            <div class="panel-body">
-              Panel content
+            <div class="panel-heading">Account Summary</div>
+            <div class="panel-body" id="panel-account-summary">
+              <div id="chart-account-summary" style="height: 175px;"></div>
+              <div class="text-center">Current Balance: {{ $last_record->balance }}</div>
             </div>
           </div>
         </div>
@@ -111,6 +116,10 @@
 <script src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
 <script src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
 <script src="//cdn.datatables.net/buttons/1.1.2/js/buttons.html5.min.js"></script>
+
+<!-- morris chart -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 
 <script type="text/javascript">
 var last_record = {!! $last_record !!};
@@ -222,6 +231,19 @@ function initDt($el, data){
 
   })
 }
+
+Morris.Bar({
+  element: 'chart-account-summary',
+  data: [
+    { month: 'Feb', debit: 100,credit: 90, balance: 10 },
+    { month: 'Mar', debit: 100, credit: 90, balance: 10 },
+    { month: 'Apr', debit: 75,  credit: 65, balance: 15 },
+  ],
+  xkey: 'month',
+  ykeys: ['debit', 'credit', 'balance'],
+  labels: ['Debit', 'Credit', 'Balance']
+});
+
 
 $('[data-action="refresh-table-ledger"]').click(function(){
   reloadLedgerDt();
