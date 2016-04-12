@@ -15,7 +15,7 @@
 #current-balance {
   font-weight: bold;
 }
-.btn:focus, .btn:focus:active, .paginate_button a:focus, .paginate_button a:focus:active{
+button, .btn:focus, .btn:focus:active, .paginate_button a:focus, .paginate_button a:focus:active{
   outline-color:white !important;
 }
 </style>
