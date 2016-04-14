@@ -1,17 +1,20 @@
 @extends('eloquent-simple-ledger.layout')
 
 @push('head')
+<!-- morris -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+
 <link href="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.11/css/dataTables.bootstrap.min.css" rel="stylesheet">
 <link href="//cdn.datatables.net/buttons/1.1.2/css/buttons.dataTables.min.css" rel="stylesheet">
 <link href="//cdn.datatables.net/responsive/2.0.2/css/responsive.dataTables.min.css" rel="stylesheet">
-
-<!-- morris -->
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
 
 <style type="text/css">
 #table-ledger_length{
   float: left;
 }
+</style>
+
+<style type="text/css">
 #current-balance {
   font-weight: bold;
 }
@@ -41,7 +44,7 @@ button, .btn:focus, .btn:focus:active, .paginate_button a:focus, .paginate_butto
           @include('eloquent-simple-ledger.panels.new-credit')
         </div>
 
-        <div class="col-md-8 col-sm-12">
+        <div class="col-md-12 col-sm-12">
           @include('eloquent-simple-ledger.panels.transaction-history')
         </div>
 
