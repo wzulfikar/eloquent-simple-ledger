@@ -2,6 +2,8 @@
 
 namespace Wzulfikar\EloquentSimpleLedger;
 
+use Illuminate\Support\Facades\DB;
+
 class LedgerHelper {
 
 	public static function record(array $data, Account $account)
@@ -16,8 +18,25 @@ class LedgerHelper {
 		return $account->$action($amount, $desc);
 	}
 
-	public static function accountData(Account $account){
-		return ['ledger' => $account->ledger()->get(), 'summary' => (new static)->summary($account)];
+	public static function accountStats(Account $account){
+		$static = (new static);
+		return ['ledger' => $account->ledger()->get(), 'summary' => $static->summary($account), 'transactions'=>$static->transactions($account)];
+	}
+
+	public static function transactions(Account $account)
+	{
+		$transactions = $account->ledger()->select(
+			DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') date, coalesce(sum(debit)/100, 0) debit, coalesce(sum(credit)/100, 0) credit, coalesce(sum(debit)/100, 0) - coalesce(sum(credit)/100, 0) balance")
+		)->groupBy('date')->get();
+
+		// adjust balance
+		foreach ($transactions as $key => $transaction) {
+			if($key == 0)
+				continue;
+			$transactions[$key]['balance'] += $transactions[$key-1]['balance'];
+		}
+
+	  return $transactions;
 	}
 
 	public static function summary(Account $account){
