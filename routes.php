@@ -12,13 +12,15 @@ Route::group([
 		$router->model('account', Account::class);
 
 		Route::get('', function($account){
+			$stats = LedgerHelper::accountStats($account);
+
 			if(Request::ajax()){
-				return LedgerHelper::accountData($account);
+				return $stats;
 			}
 
 			view()->addLocation(__DIR__ . '/views');
 
-			return view('eloquent-simple-ledger.index', compact('account'));
+			return view('eloquent-simple-ledger.index', compact('account', 'stats'));
 		});
 
 		Route::post('', function($account){
@@ -27,10 +29,18 @@ Route::group([
 			if(isset($transaction['error']))
 				return $transaction;
 
-			return LedgerHelper::accountData($account);
+			return LedgerHelper::accountStats($account);
 		});
 
 		Route::get('summary', function($account){
 			return LedgerHelper::summary($account);
+		});
+
+		Route::get('transactions', function($account){
+			return LedgerHelper::transactions($account);
+		});		
+
+		Route::get('accountStats', function($account){
+			return LedgerHelper::accountStats($account);
 		});
 });
