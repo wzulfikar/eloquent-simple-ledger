@@ -139,3 +139,9 @@ The sample view included some features:
  - human friendly time using moment.js
  - responvie table, sortable columns & searchable -- yes, it uses datatables :)
  - debts indicator : balance will be red if it less than 0
+
+### Additional Panels
+
+- Transaction History
+
+![image](panel-transaction-history.png)
