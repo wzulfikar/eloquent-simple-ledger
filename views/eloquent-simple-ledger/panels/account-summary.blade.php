@@ -5,19 +5,3 @@
     <div class="text-center">Current Balance: <span id="current-balance">{{ $account->balance/100 }}</span></div>
   </div>
 </div>
-
-@push('script')
-<script type="text/javascript">
-// chart account summary
-var chartAccountSummary = Morris.Bar({
-  element: 'chart-account-summary',
-  data: [
-    {month:'No data', debit:0, credit:0, balance:0}
-  ],
-  xkey: 'month',
-  ykeys: ['debit', 'credit', 'balance'],
-  labels: ['Debit', 'Credit', 'Balance'],
-  hideHover:'auto',
-});
-</script>
-@endpush

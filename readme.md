@@ -122,7 +122,7 @@ If you don't want to copy thus files into your app's migration folder, pass the 
 To see how it looks, 
 
 - include package's `routes.php` into your app's `routes.php` :  
-	`require_once base_path('path/to/wzulfikar/eloquent-simple-ledger/routes.php');`
+	`require_once base_path('vendor/wzulfikar/eloquent-simple-ledger/routes.php');`
 - create dummy data for `account` and `account_ledgers` and then visit `/ledger/{account_id}`.
 
 ### Sample View : No Data

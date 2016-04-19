@@ -39,6 +39,30 @@ function setCurrentBalance(bal){
   $('#current-balance').text( bal/100 );
 }
 
+// chart account summary
+var chartAccountSummary = Morris.Bar({
+  element: 'chart-account-summary',
+  data: [
+    {month:'No data', debit:0, credit:0, balance:0}
+  ],
+  xkey: 'month',
+  ykeys: ['debit', 'credit', 'balance'],
+  labels: ['Debit', 'Credit', 'Balance'],
+  hideHover:'auto',
+});
+
+// chart transaction history
+var chartTransactionHistory = Morris.Line({
+  element: 'chart-transaction-history',
+  data: [
+    {date:'No data', debit:0, credit:0, balance:0}
+  ],
+  xkey: 'date',
+  ykeys: ['debit', 'credit', 'balance'],
+  labels: ['Debit', 'Credit', 'Balance'],
+  hideHover:'auto',
+});
+
 // form handler
 $('form[data-ajax="true"] [type="submit"]').click(function(e){
   e.preventDefault();
