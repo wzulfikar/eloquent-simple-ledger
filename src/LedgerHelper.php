@@ -20,12 +20,12 @@ class LedgerHelper {
 
 	public static function accountStats(Account $account){
 		$static = (new static);
-		return ['ledger' => $account->ledger()->get(), 'summary' => $static->summary($account), 'transactions'=>$static->transactions($account)];
+		return ['ledger' => $account->ledgers()->get(), 'summary' => $static->summary($account), 'transactions'=>$static->transactions($account)];
 	}
 
 	public static function transactions(Account $account)
 	{
-		$transactions = $account->ledger()->select(
+		$transactions = $account->ledgers()->select(
 			DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') date, coalesce(sum(debit)/100, 0) debit, coalesce(sum(credit)/100, 0) credit, coalesce(sum(debit)/100, 0) - coalesce(sum(credit)/100, 0) balance")
 		)->groupBy('date')->get();
 
@@ -49,7 +49,7 @@ class LedgerHelper {
 		sort($months);
 		$range  = [ $months[ 0 ] . date('-01 00:00:00'), $months[ count($months) - 1 ] . date('-d H:i:s')];
 		
-		$ledger = $account->ledger()
+		$ledger = $account->ledgers()
 											->whereBetween('created_at', $range)
 											->get(['created_at', 'debit', 'credit', 'balance'])
 											->toArray();
