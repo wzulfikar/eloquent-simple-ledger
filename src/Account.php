@@ -36,7 +36,7 @@ class Account extends Model{
 	
 	public function getPrevBalanceAttribute()
 	{
-	  if($ledger = $this->ledger()->latest()->take(2)->get())
+	  if($ledger = $this->ledgers()->latest()->take(2)->get())
 	  	return $ledger[1]->balance;
 
 	  return null;
