@@ -26,9 +26,12 @@ class LedgerHelper {
 	public static function transactions(Account $account)
 	{
 		$transactions = $account->ledgers()->select(
-			DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') date, coalesce(sum(debit)/100, 0) debit, coalesce(sum(credit)/100, 0) credit, coalesce(sum(debit)/100, 0) - coalesce(sum(credit)/100, 0) balance")
-		)->groupBy('date')->get();
-
+			DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d") date, coalesce(sum(debit)/100, 0) debit, coalesce(sum(credit)/100, 0) credit, coalesce(sum(debit)/100, 0) - coalesce(sum(credit)/100, 0) balance')
+		)		
+		->groupBy('date')
+		->get()
+		->toArray();
+		
 		// adjust balance
 		foreach ($transactions as $key => $transaction) {
 			if($key == 0)
