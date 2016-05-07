@@ -12,6 +12,11 @@ class AccountLedger extends Model{
 		return $this->belongsTo(Account::class);
 	}
 
+	public function scopeOfAccount($query, $account_id)
+	{
+	  return $query->where('account_id', $account_id);
+	}
+
 	public function getTransactionAmountAttribute(){
 		return $this->debit ?: -($this->credit);
 	}
