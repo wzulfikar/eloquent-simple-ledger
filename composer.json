@@ -1,5 +1,6 @@
 {
     "name": "wzulfikar/eloquent-simple-ledger",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "Wzulfikar\\EloquentSimpleLedger\\": "src/"
